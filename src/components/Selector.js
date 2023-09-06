@@ -1,7 +1,7 @@
 // 実際はAppではなく親のTopPageから直接propsを受け取る方が無駄がない
 const Selector = (props) => {
   return (
-    <div>
+    <div className="selector-container">
       {/* eはユーザの操作によって発生したeventに関係する情報を持つオブジェクト */}
       {/* console.log(e)とすればChromeの「検証」>Consleで中身を全て確認可能 */}
       <select onChange={(e) => props.setCountry(e.target.value)}>
