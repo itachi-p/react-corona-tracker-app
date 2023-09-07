@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import countriesJson from "./countries.json";
 import TopPage from "./pages/TopPage"
 import './App.css';
@@ -30,9 +31,12 @@ function App() {
       })
   }
   return (
-    <div>
-      <TopPage countriesJson={countriesJson} setCountry={setCountry} getCountryData={getCountryData} countryData={countryData}/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TopPage countriesJson={countriesJson} setCountry={setCountry} getCountryData={getCountryData} countryData={countryData}/>}/>
+        <Route path="/world" element={<p>ワールド</p>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
