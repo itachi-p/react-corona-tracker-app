@@ -1,3 +1,4 @@
+import Header from "../components/Header";
 import Title from "../components/Title"
 import Selector from "../components/Selector";
 import Results from "../components/Results";
@@ -6,7 +7,8 @@ import Results from "../components/Results";
 const TopPage = (props) => {
   return (
     <div className="top-page-container">
-      <div>
+      <div className="top-page-container">
+        <Header />
         <Title />
         {/* stateをAppで管理しTopPageを経由するやり方は冗長だが、今回は学習目的で敢えてこのようにしている */}
         <Selector countriesJson={props.countriesJson} setCountry={props.setCountry} getCountryData={props.getCountryData} />
@@ -14,7 +16,6 @@ const TopPage = (props) => {
       </div>
     </div>
   );
-  ;
-}
+};
 
 export default TopPage;
