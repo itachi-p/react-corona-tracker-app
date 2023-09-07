@@ -1,4 +1,4 @@
-const Card = () => {
+const Card = (props) => {
   return (
     <div>
       <h2>Card</h2>
