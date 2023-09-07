@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import countriesJson from "./countries.json";
 import TopPage from "./pages/TopPage"
@@ -15,15 +15,15 @@ function App() {
     newRecovered: "",
     totalRecovered: "",
   });
-  const [allCountriesData, setAllCountriesData] = useState([]); // 全国のデータを格納する配列
+  // 全国のデータを格納する変数（配列だとわかっているので初期値は[]）
+  const [allCountriesData, setAllCountriesData] = useState([]);
 
   // セレクトボックスで選択された国のデータを取得する関数
   const getCountryData = () => {
-    // fetchでAPIを叩く。文字列にstate等のJSコードを含めるにはバッククォートを使い、${}で囲む
     fetch(`https://monotein-books.vercel.app/api/corona-tracker/country/${country}`)
-      .then(res => res.json()) // fetchでアクセスしたURLからのレスポンスをJSON形式に変換
+      .then(res => res.json())
       .then(data => {
-        setCountryData({ // stateを更新
+        setCountryData({
           date: data[data.length - 1].Date,
           newConfirmed: data[data.length - 1].Confirmed - data[data.length - 2].Confirmed,
           totalConfirmed: data[data.length - 1].Confirmed,
@@ -32,17 +32,21 @@ function App() {
         });
       })
   }
-  const getAllCountriesData = () => {
+
+  // useEffectを使い、WorldPageコンポーネントが表示された時、自動で全世界の感染データを取得し表示する
+  useEffect(() => {
+    // 関数をまるまるuseEffectの中に移動することにより、WorldPageコンポーネントが表示された時に自動実行される
+    // また、getAllCountriesDataといった命名や明示的な呼び出しも省略できる(残すことも可能)
     fetch("https://monotein-books.vercel.app/api/corona-tracker/summary")
-      .then(res => res.json())
-      // 送り返されたデータ中のCountries部分をそのまま渡す
-      .then(data => setAllCountriesData(data.Countries))
-  }
+        .then(res => res.json())
+        .then(data => setAllCountriesData(data.Countries))
+  }, []); // 第二引数に空の配列を渡すことで、初回のみ実行されるようにする
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<TopPage countriesJson={countriesJson} setCountry={setCountry} getCountryData={getCountryData} countryData={countryData}/>}/>
-        <Route path="/world" element={<WorldPage allCountriesData={allCountriesData} getAllCountriesData={getAllCountriesData} />} />
+        <Route path="/world" element={<WorldPage allCountriesData={allCountriesData} />} />
       </Routes>
     </BrowserRouter>
   );
