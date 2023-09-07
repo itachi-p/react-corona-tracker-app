@@ -1,21 +1,10 @@
-import { useState } from "react";
-
 const Card = () => {
-  const [allCountriesData, setAllCountriesData] = useState([]); // 全国のデータを格納する配列
-
-  const getAllCountriesData = () => {
-    fetch("https://monotein-books.vercel.app/api/corona-tracker/summary")
-      .then(res => res.json())
-      // 送り返されたデータ中のCountries部分をそのまま渡す
-      .then(data => setAllCountriesData(data.Countries))
-  }
   return (
     <div>
-      
       <h2>Card</h2>
-      <button onClick={getAllCountriesData}>Get All Data</button>
+      <button onClick={props.getAllCountriesData}>Get All Data</button>
       {/* map関数でallCountriesDataの中身の配列を順番に取り出す */}
-      {allCountriesData.map((singleData, index) =>
+      {props.allCountriesData.map((singleData, index) =>
         <div key={index}>
           <h2>{singleData.Country}</h2>
           <p>新規感染者: {singleData.NewConfirmed}</p>

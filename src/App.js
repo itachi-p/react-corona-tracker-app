@@ -15,6 +15,7 @@ function App() {
     newRecovered: "",
     totalRecovered: "",
   });
+  const [allCountriesData, setAllCountriesData] = useState([]); // 全国のデータを格納する配列
 
   // セレクトボックスで選択された国のデータを取得する関数
   const getCountryData = () => {
@@ -31,11 +32,17 @@ function App() {
         });
       })
   }
+  const getAllCountriesData = () => {
+    fetch("https://monotein-books.vercel.app/api/corona-tracker/summary")
+      .then(res => res.json())
+      // 送り返されたデータ中のCountries部分をそのまま渡す
+      .then(data => setAllCountriesData(data.Countries))
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<TopPage countriesJson={countriesJson} setCountry={setCountry} getCountryData={getCountryData} countryData={countryData}/>}/>
-        <Route path="/world" element={<WorldPage />} />
+        <Route path="/world" element={<WorldPage allCountriesData={allCountriesData} getAllCountriesData={getAllCountriesData} />} />
       </Routes>
     </BrowserRouter>
   );
