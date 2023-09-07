@@ -1,8 +1,7 @@
-const Card = (props) => {
+const Card = (allCountriesData) => {
   return (
     <div className="card-container">
-      {/* map関数でallCountriesDataの中身の配列を順番に取り出す */}
-      {props.allCountriesData.map((singleData, index) =>
+      {allCountriesData.map((singleData, index) =>
         <div key={index} className="card">
           <div>
             <h2>{singleData.Country}</h2>

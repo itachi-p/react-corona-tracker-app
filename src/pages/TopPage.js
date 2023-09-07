@@ -3,16 +3,15 @@ import Title from "../components/Title"
 import Selector from "../components/Selector";
 import Results from "../components/Results";
 
-// 今回は敢えてstateを最上位のAppで管理し、TopPageを経由し子コンポーネントに渡す
-const TopPage = (props) => {
+// propsの代わりに分割代入を使い、コードを簡潔に書き換え
+const TopPage = ({ countriesJson, setCountry, getCountryData, countryData}) => {
   return (
     <div className="top-page-container">
-      <div className="top-page-container">
+      <div>
         <Header />
         <Title />
-        {/* stateをAppで管理しTopPageを経由するやり方は冗長だが、今回は学習目的で敢えてこのようにしている */}
-        <Selector countriesJson={props.countriesJson} setCountry={props.setCountry} getCountryData={props.getCountryData} />
-        <Results countryData={props.countryData} />
+        <Selector countriesJson={countriesJson} setCountry={setCountry} getCountryData={getCountryData} />
+        <Results countryData={countryData} />
       </div>
     </div>
   );

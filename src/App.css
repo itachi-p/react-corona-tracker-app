@@ -272,11 +272,3 @@ h1 {
       transform: rotate(360deg);
     }
 }
-
-#subtitle {
-    font-size: 2.6rem;
-    color: khaki;
-    margin-left: 2rem;
-    font-weight: 400;
-    letter-spacing: 0.1rem;
-}
