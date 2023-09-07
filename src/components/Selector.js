@@ -1,5 +1,5 @@
 // propsでなく分割代入でコードを簡潔に書き換える
-const Selector = (setCountry, countriesJson, getCountryData) => {
+const Selector = ({ setCountry, countriesJson, getCountryData} ) => {
   return (
     <div className="selector-container">
       {/* eはユーザの操作によって発生したeventに関係する情報を持つオブジェクト */}

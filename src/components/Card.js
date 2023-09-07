@@ -1,4 +1,4 @@
-const Card = (allCountriesData) => {
+const Card = ({ allCountriesData }) => {
   return (
     <div className="card-container">
       {allCountriesData.map((singleData, index) =>

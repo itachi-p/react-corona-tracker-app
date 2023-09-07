@@ -1,5 +1,5 @@
 // 分割代入を使ってコードを簡潔に書き換え
-const Results = (countryData) => {
+const Results = ({ countryData }) => {
   const { date, newConfirmed, totalConfirmed, newRecovered, totalRecovered } = countryData;
   return (
     <div className="results-container">

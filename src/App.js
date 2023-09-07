@@ -31,15 +31,16 @@ function App() {
           totalRecovered: data[data.length - 1].Recovered,
         });
       })
+      .catch(err => alert("エラーが発生しました。ページをリロードして、もう一度トライしてください。"));
+
   }
 
   // useEffectを使い、WorldPageコンポーネントが表示された時、自動で全世界の感染データを取得し表示する
   useEffect(() => {
-    // 関数をまるまるuseEffectの中に移動することにより、WorldPageコンポーネントが表示された時に自動実行される
-    // また、getAllCountriesDataといった命名や明示的な呼び出しも省略できる(残すことも可能)
     fetch("https://monotein-books.vercel.app/api/corona-tracker/summary")
         .then(res => res.json())
         .then(data => setAllCountriesData(data.Countries))
+        .catch(err => alert("エラーが発生しました。ページをリロードして、もう一度トライしてください。"));
   }, []); // 第二引数に空の配列を渡すことで、初回のみ実行されるようにする
 
   return (
