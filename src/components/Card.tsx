@@ -1,11 +1,4 @@
-// propsの型定義:ここも敢えてWorldPage.tsxとは異なる書き方をしている
-interface CardType {
-	  allCountriesData: {
-		  Country: string,
-		  NewConfirmed: number,
-		  TotalConfirmed: number,
-	  }[],
-}
+import { CardType } from '../types';
 
 const Card = ({ allCountriesData }: CardType) => {
   return (
