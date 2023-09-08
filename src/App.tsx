@@ -4,29 +4,8 @@ import countriesJson from "./countries.json";
 import TopPage from "./pages/TopPage"
 import WorldPage from "./pages/WorldPage"
 import './App.css';
-
-// countryDataの型を定義
-type CountryDataType = {
-	date: string,
-	newConfirmed: number,
-	totalConfirmed: number,
-	newRecovered: number,
-	totalRecovered: number,
-}
-
-// typeと別にinterfaceを使って型定義を行っても良い
-// ※記法に若干の差があるが、それ以外のinterfaceとtypeの違いは要調査
-interface SingleCountryDataType {
-	Country: string,
-	NewConfirmed: number,
-	TotalConfirmed: number,
-}
-// 配列の場合、typeであれば最後に[]を加えるだけで済むが、interfaceの場合少し異なる
-// extendsを使うことで既に定義済みのinterfaceを再利用(継承)することが可能
-interface AllCountriesDataType extends Array<SingleCountryDataType> {}
-// 下記も同じ。TypeScriptのバージョンアップに伴い、typeとinterfaceのどちらが良いかは難しい問題
-// type AllCountriesDataType = SingleCountryDataType[];
-// interfaceは型の定義。typeは厳密には型の別名(type alias)で、無名の型に参照のため別名をを与える
+// 型定義を外部化
+import { CountryDataType, AllCountriesDataType } from "./types";
 
 function App() {
 	const [loading, setLoading] = useState<boolean>(false);
