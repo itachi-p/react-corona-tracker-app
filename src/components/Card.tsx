@@ -1,4 +1,13 @@
-const Card = ({ allCountriesData }) => {
+// propsの型定義:ここも敢えてWorldPage.tsxとは異なる書き方をしている
+interface CardType {
+	  allCountriesData: {
+		  Country: string,
+		  NewConfirmed: number,
+		  TotalConfirmed: number,
+	  }[],
+}
+
+const Card = ({ allCountriesData }: CardType) => {
   return (
     <div className="card-container">
       {allCountriesData.map((singleData, index) =>

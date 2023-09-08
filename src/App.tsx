@@ -14,7 +14,20 @@ type CountryDataType = {
 	totalRecovered: number,
 }
 
-// 共有データを持つのはTopPageでも良いが、今回は学習目的の為に最上位のAppコンポーネントで管理する
+// typeと別にinterfaceを使って型定義を行っても良い
+// ※記法に若干の差があるが、それ以外のinterfaceとtypeの違いは要調査
+interface SingleCountryDataType {
+	Country: string,
+	NewConfirmed: number,
+	TotalConfirmed: number,
+}
+// 配列の場合、typeであれば最後に[]を加えるだけで済むが、interfaceの場合少し異なる
+// extendsを使うことで既に定義済みのinterfaceを再利用(継承)することが可能
+interface AllCountriesDataType extends Array<SingleCountryDataType> {}
+// 下記も同じ。TypeScriptのバージョンアップに伴い、typeとinterfaceのどちらが良いかは難しい問題
+// type AllCountriesDataType = SingleCountryDataType[];
+// interfaceは型の定義。typeは厳密には型の別名(type alias)で、無名の型に参照のため別名をを与える
+
 function App() {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [country, setCountry] = useState<string>("japan");
@@ -25,8 +38,12 @@ function App() {
 		newRecovered: 0,
 		totalRecovered: 0,
 	});
-	// 全国のデータを格納する変数（配列だとわかっているので初期値は[]）
-	const [allCountriesData, setAllCountriesData] = useState([]);
+	// TypeScript化に伴い、ただの[](空の配列)より厳密な初期値と型定義を与える
+	const [allCountriesData, setAllCountriesData] = useState<AllCountriesDataType>([{
+		Country: "",
+		NewConfirmed: 0,
+		TotalConfirmed: 0,
+	}]);
 
 	// useEffectを使い、countryの値が変更された時点でデータを取得する(Get Dataボタンの廃止)
 	useEffect(() => {
